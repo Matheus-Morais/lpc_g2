@@ -261,10 +261,11 @@ class AvaliacaoArtigoResource(ModelResource):
         a = bundle.data['avaliador'].split('/')
         ar = bundle.data['artigo'].split('/')
         c = bundle.data['criterio'].split('/')
-        if Avaliador.objects.filter(usuario = userLogado):
+        avaliador = Avaliador.objects.get(pk = int(a[4]))
+        if userLogado == avaliador.usuario:
             avalia = AvaliacaoArtigo()
 
-            avalia.avaliador = Avaliador.objects.get(pk = int(a[4]))
+            avalia.avaliador = avaliador
             avalia.artigo = ArtigoCientifico.objects.get(pk = int(ar[4]))
             avalia.criterio = CriterioAvaliacao.objects.get(pk = int(c[4]))
             avalia.nota = int(bundle.data['nota'])
