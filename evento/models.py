@@ -11,7 +11,6 @@ class Evento(models.Model):
 
     def save(self, *args, **kwargs):
         self.nome = self.nome.upper()
-        self.eventoPrincipal = self.eventoPrincipal.upper()
 
         super(Evento, self).save(*args, **kwargs)
 
@@ -102,6 +101,9 @@ class Avaliador(Pessoa):
     def __str__(self):
         return '{}'.format(self.curriculo)
 
+class AvaliadorEvento(models.Model):
+    avaliador = models.ForeignKey('Avaliador')
+    evento = models.ForeignKey('EventoCientifico')
 
 class AvaliacaoArtigo(models.Model):
     avaliador = models.ForeignKey('Avaliador')
